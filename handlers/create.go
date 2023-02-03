@@ -3,16 +3,17 @@ package handlers
 import (
 	"encoding/json"
 	"log"
+	"fmt"
 	"github.com/Api-go-postgres/models"
 	"net/http"
+	
 )
 
 func Create(w http.ResponseWriter, r *http.Request){
 	var todo models.todo
 
 	//If any error on json, verify here
-	decoder, err := json.NewDecoder(res.Body)
-	decoder.Decode(&todo)
+	err := json.NewDecoder(res.Body).Decode(&todo)
 	
 	if err != nil {
 		log.Printf("Error in decoder json: %v", err)
@@ -26,12 +27,12 @@ func Create(w http.ResponseWriter, r *http.Request){
 	if err != nil {
 	  resp = map[string]any{
 		"Error": true,
-		"Message":fmt.Sprintf("Any error ocurred on insert: %v", err)
+		"Message":fmt.Sprintf("Any error ocurred on insert: %v", err),
 	  }
 	}else{
 		resp = map[string]any{
 			"Error": false,
-			"Message": fmt.Sprintf("Task sucefully inserted")
+			"Message": fmt.Sprintf("Task sucefully inserted"),
 
 		}
 	}

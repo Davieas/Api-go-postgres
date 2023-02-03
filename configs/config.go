@@ -20,7 +20,7 @@ type APIConfig struct {
 	Port string
 }
 
-type DBConfig{
+type DBConfig struct {
 
 	Host string
 	Port string
@@ -56,8 +56,7 @@ func load(){
 	cfg = new(config)
 
 	cfg.API = APIConfig{
-
-		Port: viper.GetString("api.port")
+		Port: viper.GetString("api.port"),
 	}
 
 	cfg.DB = DBConfig{
@@ -65,7 +64,7 @@ func load(){
 		Port: viper.GetString("database.port"),
 		User: viper.GetString("database.user"),
 		Pass: viper.GetString("database.pass"),
-		Database: viper.GetString("database.name")
+		Database: viper.GetString("database.name"),
 	}
 
 	return nil

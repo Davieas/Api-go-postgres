@@ -19,7 +19,6 @@ conf.Host, conf.Port, conf.User, conf.Pass, conf.Database)
 conn, err := sql.Open("postgres", sc)
 
 if err != nil {
-	return nil, err
 	panic(err)
 }
 

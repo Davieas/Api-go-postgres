@@ -10,7 +10,7 @@ import (
 	"github.com/Api-go-postgres/models"
 )
 
-func Update(w http.ResponseWriter, r *http.Resquest){
+func Delete(w http.ResponseWriter, r *http.Resquest){
 	id, err := strconv.Atoi(chi.URLParam(r, "id"))
 	if err != nil {
 		log.Printf("Error in parse of id: %v", err)
@@ -19,32 +19,21 @@ func Update(w http.ResponseWriter, r *http.Resquest){
 	}
 	var todo models.todo
 
-
-
-	 err = json.NewDecoder(res.Body).Decode(&todo)
-
-	
+	rows, err := models.Delete(int64(id), todo)
 	if err != nil {
-		log.Printf("Error in decoder json: %v", err)
-	  http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
-	  return
-	}
-
-	rows, err := models.Update(int64(id), todo)
-	if err != nil {
-		log.Printf("Error on update register: %v", err)
+		log.Printf("Error on remove register: %v", err)
 		http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
 		return
 	}
 
 	if rows > 1 {
-		log.Printf("Error: %d registers is updates", rows)
+		log.Printf("Error: %d registers not removeds ", rows)
 	}
 
 	resp := map[string]any{
 
 		"Error": false,
-		"Message": "Update data sucefully",
+		"Message": "Remove data sucefully",
 	}
 
 	w.Header().Add("Content-Type", "application/json")

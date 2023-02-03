@@ -5,7 +5,7 @@ import (
 	"github.com/Api-go-postgres/db"
 )
 
-func Insert(todo todo) (id int64, err error) {
+func Insert(todo Todo) (id int64, err error) {
 	conn, err := db.OpenConnection()
 	if err != nil {
 		return 
