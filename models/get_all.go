@@ -22,16 +22,16 @@ func GetAll() (todos []Todo, err error){
 	for rows.Next() {
 		var todo Todo
 
-		err = row.Scan(&todo.ID, &todo.Title, &todo.Description, &todo.Done)
+		err = rows.Scan(&todo.ID, &todo.Title, &todo.Description, &todo.Done)
 		if err != nil {
 		  continue
-		  return err
+		
 		}
 	todos = append(todos, todo)
 		
 	}
 
-	return 
+	return todos, err
 
 }
 

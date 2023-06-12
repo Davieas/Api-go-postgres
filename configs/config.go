@@ -38,7 +38,7 @@ func init(){
 	viper.SetDefault("database.port", "5432")
 	
 }
-func load(){
+func Load() error {
 	viper.SetConfigName("config")
 	viper.SetConfigType("toml")
 	viper.AddConfigPath(".")
@@ -46,12 +46,14 @@ func load(){
 	err := viper.ReadInConfig()
 
 	if err != nil {
-		if err _, ok := err.(viper.ConfigFileNotFoundError); !ok {
+		if _, ok := err.(viper.ConfigFileNotFoundError); !ok {
 
 			return err
 
 		}
+		
 	}
+
 
 	cfg = new(config)
 
@@ -66,7 +68,6 @@ func load(){
 		Pass: viper.GetString("database.pass"),
 		Database: viper.GetString("database.name"),
 	}
-
 	return nil
 }
 

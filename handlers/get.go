@@ -1,9 +1,10 @@
 package handlers
 
 import (
+	"encoding/json"
+	"log"
 	"net/http"
 	"strconv"
-
 	"github.com/Api-go-postgres/models"
 	"github.com/go-chi/chi"
 )
@@ -11,7 +12,7 @@ import (
 
 func Get(w http.ResponseWriter, r http.Request){
 
-	id, err := strconv.Atoi(chi.URLParam(r, "id"))
+	id, err := strconv.Atoi(chi.URLParam(&r, "id"))
 	if err != nil {
 		log.Printf("Error in parse of id: %v", err)
 		http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
